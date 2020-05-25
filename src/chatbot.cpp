@@ -61,6 +61,15 @@ ChatBot& ChatBot::operator=(const ChatBot &source){
   return *this;
 }
 
+// move constructor
+ChatBot::ChatBot(ChatBot &&source){
+	_image = source._image;
+    _chatLogic = source._chatLogic;
+    _rootNode = source._rootNode;
+  	_image = nullptr;
+    _chatLogic = nullptr;
+    _rootNode = nullptr;
+}
 
 ChatBot::~ChatBot()
 {

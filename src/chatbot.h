@@ -33,6 +33,8 @@ public:
     ChatBot(const ChatBot &source);
     // assignment operator overload - deep copy
     ChatBot& operator=(const ChatBot &source);
+    // move constructor
+    ChatBot(ChatBot &&source);
     ////
     //// EOF STUDENT CODE
 
