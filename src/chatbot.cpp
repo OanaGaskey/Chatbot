@@ -32,10 +32,12 @@ ChatBot::ChatBot(std::string filename)
     _image = new wxBitmap(filename, wxBITMAP_TYPE_PNG);
 }
 
-// copy constructor
+// copy constructor - deep copy
 ChatBot::ChatBot(const ChatBot & source){
     _image = new wxBitmap();
   	*_image = *source._image;
+  //not sure it's best to make a copy of node...
+  //maybe the resulting graph shouldn't have two nodes with the same id...
     _currentNode = new GraphNode(source._currentNode->GetID());
     *_currentNode = *source._currentNode;
     _rootNode = new GraphNode(source._rootNode->GetID());
@@ -43,6 +45,22 @@ ChatBot::ChatBot(const ChatBot & source){
     _chatLogic = new ChatLogic();
   	*_chatLogic = *source._chatLogic;
 }
+
+//assignment operator overload - deep copy
+ChatBot& ChatBot::operator=(const ChatBot &source){
+    _image = new wxBitmap();
+  	*_image = *source._image;
+  	//not sure it's best to make a copy of node...
+ 	//maybe the resulting graph shouldn't have two nodes with the same id...
+    _currentNode = new GraphNode(source._currentNode->GetID());
+    *_currentNode = *source._currentNode;
+    _rootNode = new GraphNode(source._rootNode->GetID());
+  	*_rootNode = *source._rootNode;
+    _chatLogic = new ChatLogic();
+  	*_chatLogic = *source._chatLogic;
+  return *this;
+}
+
 
 ChatBot::~ChatBot()
 {
