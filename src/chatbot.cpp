@@ -48,6 +48,9 @@ ChatBot::ChatBot(const ChatBot & source){
 
 //assignment operator overload - deep copy
 ChatBot& ChatBot::operator=(const ChatBot &source){
+    if (this == &source) {
+        return *this;
+    }
     _image = new wxBitmap();
   	*_image = *source._image;
   	//not sure it's best to make a copy of node...
@@ -69,6 +72,20 @@ ChatBot::ChatBot(ChatBot &&source){
   	_image = nullptr;
     _chatLogic = nullptr;
     _rootNode = nullptr;
+}
+
+// move operator overload
+ChatBot& ChatBot::operator=(ChatBot &&source){
+	if (this == &source) {
+        return *this;
+    }
+  	_image = source._image;
+    _chatLogic = source._chatLogic;
+    _rootNode = source._rootNode; 
+  	_image = nullptr;
+    _chatLogic = nullptr;
+    _rootNode = nullptr;
+  	return *this;
 }
 
 ChatBot::~ChatBot()

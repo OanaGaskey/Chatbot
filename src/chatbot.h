@@ -35,6 +35,8 @@ public:
     ChatBot& operator=(const ChatBot &source);
     // move constructor
     ChatBot(ChatBot &&source);
+    // move operator overload
+    ChatBot& operator=(ChatBot &&source);
     ////
     //// EOF STUDENT CODE
 
