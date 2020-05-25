@@ -32,6 +32,18 @@ ChatBot::ChatBot(std::string filename)
     _image = new wxBitmap(filename, wxBITMAP_TYPE_PNG);
 }
 
+// copy constructor
+ChatBot::ChatBot(const ChatBot & source){
+    _image = new wxBitmap();
+  	*_image = *source._image;
+    _currentNode = new GraphNode(source._currentNode->GetID());
+    *_currentNode = *source._currentNode;
+    _rootNode = new GraphNode(source._rootNode->GetID());
+  	*_rootNode = *source._rootNode;
+    _chatLogic = new ChatLogic();
+  	*_chatLogic = *source._chatLogic;
+}
+
 ChatBot::~ChatBot()
 {
     std::cout << "ChatBot Destructor" << std::endl;
