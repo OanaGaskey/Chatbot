@@ -32,20 +32,30 @@ ChatBot::ChatBot(std::string filename)
     _image = new wxBitmap(filename, wxBITMAP_TYPE_PNG);
 }
 
+ChatBot::~ChatBot()
+{
+    std::cout << "ChatBot Destructor" << std::endl;
+
+    // deallocate heap memory
+    if(_image != NULL) // Attention: wxWidgets used NULL and not nullptr
+    {
+        delete _image;
+        _image = NULL;
+    }
+}
+
+//// STUDENT CODE
+////
 // copy constructor - deep copy
 ChatBot::ChatBot(const ChatBot & source)
 {
  	 std::cout << "ChatBot deep copy Constructor" << std::endl;
     _image = new wxBitmap();
   	*_image = *source._image;
-  //not sure it's best to make a copy of node...
-  //maybe the resulting graph shouldn't have two nodes with the same id...
-    _currentNode = new GraphNode(source._currentNode->GetID());
-    *_currentNode = *source._currentNode;
-    _rootNode = new GraphNode(source._rootNode->GetID());
-  	*_rootNode = *source._rootNode;
-    _chatLogic = new ChatLogic();
-  	*_chatLogic = *source._chatLogic;
+// it doesn't make sense to create new nodes or chat logic
+     _currentNode = source._currentNode;
+     _rootNode = source._rootNode;
+   	 _chatLogic = source._chatLogic;
 }
 
 //assignment operator overload - deep copy
@@ -57,14 +67,9 @@ ChatBot& ChatBot::operator=(const ChatBot &source)
     }
     _image = new wxBitmap();
   	*_image = *source._image;
-  	//not sure it's best to make a copy of node...
- 	//maybe the resulting graph shouldn't have two nodes with the same id...
-    _currentNode = new GraphNode(source._currentNode->GetID());
-    *_currentNode = *source._currentNode;
-    _rootNode = new GraphNode(source._rootNode->GetID());
-  	*_rootNode = *source._rootNode;
-    _chatLogic = new ChatLogic();
-  	*_chatLogic = *source._chatLogic;
+     _currentNode = source._currentNode;
+     _rootNode = source._rootNode;
+   	 _chatLogic = source._chatLogic;
   return *this;
 }
 
@@ -95,25 +100,6 @@ ChatBot& ChatBot::operator=(ChatBot &&source)
     _rootNode = nullptr;
   	return *this;
 }
-
-ChatBot::~ChatBot()
-{
-    std::cout << "ChatBot Destructor" << std::endl;
-
-    // deallocate heap memory
-    if(_image != NULL) // Attention: wxWidgets used NULL and not nullptr
-    {
-      std::cout << "deleting image" << std::endl;
-      std::cout << "image pointer before deletion "<< _image << std::endl;
-        delete _image;
-        _image = NULL;
-      std::cout << "image pointer after deletion "<< _image << std::endl;
-    }
-  std::cout << "image deleted" << std::endl;
-}
-
-//// STUDENT CODE
-////
 
 ////
 //// EOF STUDENT CODE
