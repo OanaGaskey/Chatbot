@@ -50,8 +50,13 @@ ChatBot::~ChatBot()
 ChatBot::ChatBot(const ChatBot & source)
 {
  	 std::cout << "ChatBot deep copy Constructor" << std::endl;
-    _image = new wxBitmap();
-  	*_image = *source._image;
+  	//in case source object was constructed without memory allocation copy nullptr
+  	if (source._image == nullptr) { _image = source._image; }
+  	//if source object has memory allocated, copy the image content
+  	else{
+        _image = new wxBitmap();
+  		*_image = *source._image;
+    }
 // it doesn't make sense to create new nodes or chat logic
      _currentNode = source._currentNode;
      _rootNode = source._rootNode;
@@ -65,8 +70,23 @@ ChatBot& ChatBot::operator=(const ChatBot &source)
     if (this == &source) {
         return *this;
     }
-    _image = new wxBitmap();
-  	*_image = *source._image;
+  	//in case this object was constructed without memory allocation, and source has memory allocated
+  	if (_image == nullptr && source._image != nullptr) {
+      _image = new wxBitmap();
+      //image is duplicated
+  	  *_image = *source._image;
+    }
+   //in case this object was constructed with memory allocation, and source has no memory allocated
+  	if (_image != nullptr && source._image == nullptr) {
+      delete _image;
+  	  _image = nullptr;
+    }
+  	//in case both objects have memory allocated
+  	if (_image != nullptr && source._image != nullptr) {
+      *_image = *source._image;
+    }
+  	
+  	//pointers to graph nodes and graph logic are copied
      _currentNode = source._currentNode;
      _rootNode = source._rootNode;
    	 _chatLogic = source._chatLogic;
