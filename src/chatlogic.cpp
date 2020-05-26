@@ -36,7 +36,7 @@ ChatLogic::~ChatLogic()
     delete _chatBot;
 
     // delete all nodes
-    // shall no longer be deleted with the use of smart pointers
+    // node pointers shall no longer be explicitily deleted because the use of smart pointers
   	/*
     for (auto it = std::begin(_nodes); it != std::end(_nodes); ++it)
     {
@@ -44,11 +44,13 @@ ChatLogic::~ChatLogic()
     }*/
 
     // delete all edges
+  	// edge pointers shall no longer be deleted in ChatLogic class since no longer owned by it
+  /*
     for (auto it = std::begin(_edges); it != std::end(_edges); ++it)
     {
         delete *it;
     }
-
+*/
     ////
     //// EOF STUDENT CODE
 }
