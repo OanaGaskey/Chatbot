@@ -100,9 +100,10 @@ ChatBot::ChatBot(ChatBot &&source)
 	_image = source._image;
     _chatLogic = source._chatLogic;
     _rootNode = source._rootNode;
-  	_image = nullptr;
-    _chatLogic = nullptr;
-    _rootNode = nullptr;
+  	// invalidates the source pointers so when the destructor is called, data is not deleted
+  	source._image = nullptr;
+    source._chatLogic = nullptr;
+    source._rootNode = nullptr;
 }
 
 // move operator overload
@@ -112,12 +113,15 @@ ChatBot& ChatBot::operator=(ChatBot &&source)
 	if (this == &source) {
         return *this;
     }
+  	//if this object has memory allocated for image, delete it to avoid memory leak
+  	if (_image != nullptr) { delete _image; }
   	_image = source._image;
     _chatLogic = source._chatLogic;
     _rootNode = source._rootNode; 
-  	_image = nullptr;
-    _chatLogic = nullptr;
-    _rootNode = nullptr;
+  	// invalidates the source pointers so when the destructor is called, data is not deleted
+  	source._image = nullptr;
+    source._chatLogic = nullptr;
+    source._rootNode = nullptr;
   	return *this;
 }
 
