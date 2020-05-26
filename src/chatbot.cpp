@@ -33,7 +33,9 @@ ChatBot::ChatBot(std::string filename)
 }
 
 // copy constructor - deep copy
-ChatBot::ChatBot(const ChatBot & source){
+ChatBot::ChatBot(const ChatBot & source)
+{
+ 	 std::cout << "ChatBot deep copy Constructor" << std::endl;
     _image = new wxBitmap();
   	*_image = *source._image;
   //not sure it's best to make a copy of node...
@@ -47,7 +49,9 @@ ChatBot::ChatBot(const ChatBot & source){
 }
 
 //assignment operator overload - deep copy
-ChatBot& ChatBot::operator=(const ChatBot &source){
+ChatBot& ChatBot::operator=(const ChatBot &source)
+{
+  	std::cout << "ChatBot assignment operator overload - deep copy" << std::endl;
     if (this == &source) {
         return *this;
     }
@@ -65,7 +69,9 @@ ChatBot& ChatBot::operator=(const ChatBot &source){
 }
 
 // move constructor
-ChatBot::ChatBot(ChatBot &&source){
+ChatBot::ChatBot(ChatBot &&source)
+{
+ 	 std::cout << "ChatBot move Constructor" << std::endl;  
 	_image = source._image;
     _chatLogic = source._chatLogic;
     _rootNode = source._rootNode;
@@ -75,7 +81,9 @@ ChatBot::ChatBot(ChatBot &&source){
 }
 
 // move operator overload
-ChatBot& ChatBot::operator=(ChatBot &&source){
+ChatBot& ChatBot::operator=(ChatBot &&source)
+{
+  	std::cout << "ChatBot assignment operator overload - move" << std::endl;  
 	if (this == &source) {
         return *this;
     }
