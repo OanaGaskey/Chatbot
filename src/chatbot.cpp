@@ -70,22 +70,15 @@ ChatBot& ChatBot::operator=(const ChatBot &source)
     if (this == &source) {
         return *this;
     }
-  	//in case this object was constructed without memory allocation, and source has memory allocated
-  	if (_image == nullptr && source._image != nullptr) {
-      _image = new wxBitmap();
-      //image is duplicated
-  	  *_image = *source._image;
+    if (_image != nullptr) {
+        delete _image;
+        _image = nullptr;
     }
-   //in case this object was constructed with memory allocation, and source has no memory allocated
-  	if (_image != nullptr && source._image == nullptr) {
-      delete _image;
-  	  _image = nullptr;
+    if (source._image != nullptr) {
+        _image = new wxBitmap();
+        *_image = *source._image;
     }
-  	//in case both objects have memory allocated
-  	if (_image != nullptr && source._image != nullptr) {
-      *_image = *source._image;
-    }
-  	
+
   	//pointers to graph nodes and graph logic are copied
      _currentNode = source._currentNode;
      _rootNode = source._rootNode;
