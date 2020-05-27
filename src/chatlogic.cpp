@@ -168,7 +168,7 @@ void ChatLogic::LoadAnswerGraphFromFile(std::string filename)
                           	//dereference iterator to access the unique pointer and return the raw pointer using .get()
                             edge->SetChildNode(childNode->get());
                             edge->SetParentNode(parentNode->get());
-                            _edges.push_back(edge.get());
+                            //_edges.push_back(edge.get());
 
                             // find all keywords for current node
                             AddAllTokensToElement("KEYWORD", tokens, *edge);
